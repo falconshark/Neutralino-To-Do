@@ -52,6 +52,13 @@ export default {
       editTarget: null,
     }
   },
+  async mounted(){
+    let savedList = window.localStorage.getItem('todo');
+    if(savedList){
+      savedList = JSON.parse(savedList);
+      this.lists = savedList;
+    }
+  },
   methods:{
     completeToDo(todo){
       const targetIndex = this.lists.findIndex((target) => {
@@ -71,7 +78,7 @@ export default {
     saveToDo(){
       this.editTarget = null;
     },
-    addToDo(){
+    async addToDo(){
       const index = this.lists.length + 1;
       const text = `New todo ${index}`;
       const newToDo = {
@@ -80,6 +87,7 @@ export default {
         completed: false,
       };
       this.lists.push(newToDo);
+      localStorage.setItem('todo', JSON.stringify(this.lists));
     },
   },
 }
