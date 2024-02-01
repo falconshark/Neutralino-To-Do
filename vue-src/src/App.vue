@@ -55,11 +55,7 @@ export default {
   },
   async mounted(){
     let savedList = null;
-    if(!Neutralino){
-      savedList = window.localStorage.getItem('todo');
-    }else{
-      savedList = await Neutralino.storage.getData('todo');
-    }
+    savedList = window.localStorage.getItem('todo');
     if(savedList){
       savedList = JSON.parse(savedList);
       this.lists = savedList;
@@ -94,11 +90,7 @@ export default {
         completed: false,
       };
       this.lists.push(newToDo);
-      if(!Neutralino){
-        localStorage.setItem('todo', JSON.stringify(this.lists));
-      }else{
-        await Neutralino.storage.setData('todo', JSON.stringify(this.lists));
-      }
+      localStorage.setItem('todo', JSON.stringify(this.lists));
     },
   },
 }
