@@ -1,0 +1,29 @@
+{
+  "applicationId": "js.neutralino.zero",
+  "version": "1.0.0",
+  "defaultMode": "window",
+  "documentRoot": "/vue-src/dist/",
+  "url": "/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "nativeAllowList": [
+    "app.*"
+  ],
+  "modes": {
+    "window": {
+      "title": "neutralino-to-do",
+      "width": 800,
+      "height": 800,
+      "minWidth": 400,
+      "minHeight": 200,
+      "icon": "/vue-src/public/favicon.ico"
+    }
+  },
+  "cli": {
+    "binaryName": "neutralino-to-do",
+    "resourcesPath": "/vue-src/dist/",
+    "extensionsPath": "/extensions/",
+    "binaryVersion": "5.0.0",
+    "clientVersion": "5.0.0"
+  }
+}
