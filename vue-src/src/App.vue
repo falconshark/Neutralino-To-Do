@@ -9,8 +9,10 @@
       </div>
       <div class="to-do-contents" v-else>
         <ul>
-          <li v-for="todo in lists">
-            <div class="to-do-text" v-if="editTarget !== todo.id">{{ todo.text }}</div>
+          <li v-for="todo in lists" :class="{'completed': todo.completed}">
+            <div class="to-do-text" v-if="editTarget !== todo.id">
+              {{ todo.text }}
+            </div>
             
             <div class="to-do-text-edit" v-else>
               <input v-model="todo.text"/>
@@ -19,15 +21,23 @@
               </div>
             </div>
             
-            <div class="todo-edit-button" @click="editToDo(todo)" v-if="editTarget !== todo.id">
+            <div class="todo-edit-button" @click="editToDo(todo)" 
+            v-if="editTarget !== todo.id && !todo.completed">
               <i class="bi bi-pencil"></i>
+            </div>
+
+            <div class="todo-complete-button" @click="completeToDo(todo)" v-if="editTarget !== todo.id && !todo.completed">
+              <i class="bi bi-check-lg"></i>
+            </div>
+
+            <div class="todo-remove-button" @click="removeTodo(todo)" v-if="editTarget !== todo.id && !todo.completed">
+              <i class="bi bi-trash"></i>
             </div>
           </li>
         </ul>
       </div>
       <div class="action-buttons">
         <button class="btn btn-primary btn-add" @click="addToDo">Add</button>
-        <button class="btn btn-disable btn-remove" @click="removeToDo">Remove</button>
       </div>
     </div>
   </main>
@@ -43,6 +53,18 @@ export default {
     }
   },
   methods:{
+    completeToDo(todo){
+      const targetIndex = this.lists.findIndex((target) => {
+        return todo.id == target.id;
+      });
+      this.lists[targetIndex].completed = true;
+    },
+    removeTodo(todo){
+      const newList = this.lists.filter((target) => {
+        return todo.id !== target.id;
+      });
+      this.lists = newList;
+    },
     editToDo(todo){
       this.editTarget = todo.id;
     },
@@ -94,8 +116,18 @@ body{
       margin-right: 20px;
     }
     &:hover{
-      .todo-edit-button{
+      .todo-edit-button, .todo-complete-button, .todo-remove-button{
         display: block;
+      } 
+    }
+
+    &.completed{
+      text-decoration:line-through;
+    }
+
+    .to-do-text{
+      &:hover{
+        cursor: pointer;
       }
     }
     input{
@@ -106,6 +138,20 @@ body{
     }
     .todo-edit-button{
       margin-left: 20px;
+      display: none;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    .todo-complete-button{
+      margin-left: 15px;
+      display: none;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    .todo-remove-button{
+      margin-left: 15px;
       display: none;
       &:hover{
         cursor: pointer;

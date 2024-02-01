@@ -16,7 +16,7 @@
       "height": 800,
       "minWidth": 400,
       "minHeight": 200,
-      "icon": "/vue-src/public/favicon.ico"
+      "icon": "/vue-src/public/logo.png"
     }
   },
   "cli": {
