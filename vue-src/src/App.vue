@@ -55,7 +55,11 @@ export default {
   },
   async mounted(){
     let savedList = null;
-    savedList = window.localStorage.getItem('todo');
+    if(typeof Neutralino === 'undefined'){
+      savedList = window.localStorage.getItem('todo');
+    }else{
+      savedList = await Neutralino.storage.getData('todo');
+    }
     if(savedList){
       savedList = JSON.parse(savedList);
       this.lists = savedList;
@@ -63,17 +67,26 @@ export default {
     this.dataReady = true;
   },
   methods:{
+    async saveContent(){
+      if(typeof Neutralino === 'undefined'){
+        localStorage.setItem('todo', JSON.stringify(this.lists));
+      }else{
+        await Neutralino.storage.setData('todo', JSON.stringify(this.lists));
+      }
+    },
     completeToDo(todo){
       const targetIndex = this.lists.findIndex((target) => {
         return todo.id == target.id;
       });
       this.lists[targetIndex].completed = true;
+      this.saveContent();
     },
     removeTodo(todo){
       const newList = this.lists.filter((target) => {
         return todo.id !== target.id;
       });
       this.lists = newList;
+      this.saveContent();
     },
     editToDo(todo){
       this.editTarget = todo.id;
@@ -90,7 +103,7 @@ export default {
         completed: false,
       };
       this.lists.push(newToDo);
-      localStorage.setItem('todo', JSON.stringify(this.lists));
+      this.saveContent();
     },
   },
 }

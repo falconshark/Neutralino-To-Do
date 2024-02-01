@@ -27,6 +27,6 @@
     "extensionsPath": "/extensions/",
     "binaryVersion": "5.0.0",
     "clientVersion": "5.0.0",
-    "clientLibrary": "/neutralino.js"
+    "clientLibrary": "/vue-src/public/neutralino.js"
   }
 }

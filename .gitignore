@@ -8,7 +8,10 @@
 
 # Neutralinojs client (minified)
 neutralino.js
+neutralino.d.ts
 
 # Neutralinojs related files
 .storage
 *.log
+.tmp
+
