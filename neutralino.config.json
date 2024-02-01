@@ -7,16 +7,18 @@
   "enableServer": true,
   "enableNativeAPI": true,
   "nativeAllowList": [
-    "app.*"
+    "app.*",
+    "storage.*"
   ],
   "modes": {
     "window": {
-      "title": "neutralino-to-do",
+      "title": "Neutralino To-Do",
       "width": 800,
       "height": 800,
       "minWidth": 400,
       "minHeight": 200,
-      "icon": "/vue-src/public/logo.png"
+      "icon": "/vue-src/public/logo.png",
+      "enableInspector": true
     }
   },
   "cli": {
@@ -24,6 +26,7 @@
     "resourcesPath": "/vue-src/dist/",
     "extensionsPath": "/extensions/",
     "binaryVersion": "5.0.0",
-    "clientVersion": "5.0.0"
+    "clientVersion": "5.0.0",
+    "clientLibrary": "/neutralino.js"
   }
 }

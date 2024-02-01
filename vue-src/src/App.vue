@@ -3,7 +3,7 @@
     <div class="header">
       <h1>Neutalino To Do List</h1>
     </div>
-    <div class="to-do-list">
+    <div class="to-do-list" v-if="dataReady">
       <div class="to-do-empty" v-if="lists.length === 0">
         Oh! nothing here. add something ?
       </div>
@@ -30,7 +30,7 @@
               <i class="bi bi-check-lg"></i>
             </div>
 
-            <div class="todo-remove-button" @click="removeTodo(todo)" v-if="editTarget !== todo.id && !todo.completed">
+            <div class="todo-remove-button" @click="removeTodo(todo)" v-if="editTarget !== todo.id">
               <i class="bi bi-trash"></i>
             </div>
           </li>
@@ -50,14 +50,21 @@ export default {
       lists: [],
       selected: [],
       editTarget: null,
+      dataReady: false,
     }
   },
   async mounted(){
-    let savedList = window.localStorage.getItem('todo');
+    let savedList = null;
+    if(!Neutralino){
+      savedList = window.localStorage.getItem('todo');
+    }else{
+      savedList = await Neutralino.storage.getData('todo');
+    }
     if(savedList){
       savedList = JSON.parse(savedList);
       this.lists = savedList;
     }
+    this.dataReady = true;
   },
   methods:{
     completeToDo(todo){
@@ -87,7 +94,11 @@ export default {
         completed: false,
       };
       this.lists.push(newToDo);
-      localStorage.setItem('todo', JSON.stringify(this.lists));
+      if(!Neutralino){
+        localStorage.setItem('todo', JSON.stringify(this.lists));
+      }else{
+        await Neutralino.storage.setData('todo', JSON.stringify(this.lists));
+      }
     },
   },
 }
