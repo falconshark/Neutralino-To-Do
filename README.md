@@ -6,7 +6,12 @@ To preview this app, you should install @neutralinojs/neu (Neutralino Command Li
 ```
 npm install -g @neutralinojs/neu
 ```
-That run develop mode:
+Also, it will need the client libaray of NeutralinoJS:
+```
+neu update
+```
+
+Then run develop mode:
 ```
 neu run
 ```
