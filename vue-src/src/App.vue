@@ -58,7 +58,12 @@ export default {
     if(typeof Neutralino === 'undefined'){
       savedList = window.localStorage.getItem('todo');
     }else{
-      savedList = await Neutralino.storage.getData('todo');
+      //Check could get the save from storage
+      try{
+        savedList = await Neutralino.storage.getData('todo');
+      }catch(ex){
+        //Do nothing.
+      }
     }
     if(savedList){
       savedList = JSON.parse(savedList);
